@@ -7,7 +7,6 @@ PUBCPP = /root/weather/public/_public.cpp
 # 编译参数。
 CFLAGS = -g
 
-
 all:crtsurfdata1
 
 crtsurfdata1:crtsurfdata1.cpp
@@ -15,4 +14,4 @@ crtsurfdata1:crtsurfdata1.cpp
 	cp crtsurfdata1 ../bin/.
 
 clean:
-	rm crtsurfdata1
+	rm -f crtsurfdata1
