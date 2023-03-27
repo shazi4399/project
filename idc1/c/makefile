@@ -11,7 +11,7 @@ all:crtsurfdata1 crtsurfdata2 crtsurfdata3 crtsurfdata4 crtsurfdata5
 
 crtsurfdata1:crtsurfdata1.cpp
 	g++ $(CFLAGS) -o crtsurfdata1 crtsurfdata1.cpp $(PUBINCL) $(PUBCPP) -lm -lc
-	cp crtsurfdata1 ../bin/.
+	mv crtsurfdata1 ../bin/.
 crtsurfdata2:crtsurfdata2.cpp
 	g++ $(CFLAGS) -o crtsurfdata2 crtsurfdata2.cpp $(PUBINCL) $(PUBCPP) -lm -lc
 	cp crtsurfdata2 ../bin/.

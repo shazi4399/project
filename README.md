@@ -2,4 +2,14 @@
 
 by zhanghao
 
---add via Thinkpad_x240
+# 目录说明
+`idc/`目录是课程给的代码目录
+
+`idc1/`是自己仿照学习建立的目录
+
+`book/`是练习共享内存创建的目录
+
+`pthread/`是练习多线程创建的目录
+
+`public/`和`tools/`是封装的库文件
+

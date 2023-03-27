@@ -1,11 +1,17 @@
 /*
- * 程序名：crtsurfdata1.cpp 本程序用于生成全国气象站点观测的分钟数据。
+ * 程序名：creatsurfdata1.cpp 本程序用于生成全国气象站点观测的分钟数据。
  * 作者：zhanghao
  */
 #include "_public.h"
 #include <iostream>
 CLogFile logfile;
 
+/* main函数有3个输入参数：数据文件、输出路径、日志文件
+ * @param 1：inifile
+ * @param 2：outpath
+ * @param 3：logfile
+ *
+ * */
 int main(int argc,char *argv[]){
   if (argc!=4) 
   {
