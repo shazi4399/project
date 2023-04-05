@@ -37,14 +37,19 @@ int main(int argc,char * argv[]){
         printf("shmat failed\n");
         return -1;
     }
-
+    printf("aaa pid = %d,name = %s\n",stpid->pid,stpid->name);
+    sem.P();//加锁
+    printf("bbb pid = %d,name = %s\n",stpid->pid,stpid->name);
     printf("pid = %d,name = %s\n",stpid->pid,stpid->name);
-    stpid->pid = getpid();
-    strcpy(stpid->name,argv[1]);
+    stpid->pid = getpid();       //进程编号
+    sleep(10);
+    strcpy(stpid->name,argv[1]); //进程名称
     printf("pid = %d,name = %s\n",stpid->pid,stpid->name);
+    printf("ccc pid = %d,name = %s\n",stpid->pid,stpid->name);
+    sem.V();//解锁
+    printf("ddd pid = %d,name = %s\n",stpid->pid,stpid->name);
     //把共享内存从当前进程中分离。
     shmdt(stpid);
-
 
     //删除共享内存
     if(shmctl(shmid,IPC_RMID,0) == -1){

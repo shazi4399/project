@@ -1,11 +1,11 @@
 //
 // Created by zhanghao on 22-10-9.
 // 初始心跳信息， 再给信号量加锁；
-#include "_public.h"
+#include "../public/_public.h"
 
 #define MAXNUMP_ 1000       // 最大的进程数量
 #define SHMKEYP_ 0x5095      // 共享内存的key（取值便一点，不要跟其他的冲突）
-
+#define SEMKEYP_ 0x5095
 //进程心跳信息的结构体
 struct st_pinfo{
     int pid;        // 进程pid；
@@ -18,11 +18,13 @@ int main(int argc, char *argv[]){
     if(argc < 2) { printf("Using: ./book procname \n"); return 0;}
     //创建or获取 共享内存，大小为n*sizeof(struct st_pinfo)
     int m_shmid = 0;
-    if((m_shmid = shmget(MAXNUMP_,SHMKEYP_*sizeof(struct st_pinfo),0640 | IPC_CREAT)) == -1){
+    if((m_shmid = shmget(SHMKEYP_,MAXNUMP_*sizeof(struct st_pinfo),0640 | IPC_CREAT)) == -1){
         //出错的话，给个提示信息
-        printf("shmget(%x) failed \n",MAXNUMP_); return -1;
+        printf("shmget(%x) failed \n",SHMKEYP_); return -1;
     }
-
+    CSEM m_sem;
+    if(m_sem.init(SEMKEYP_) == false)
+    { printf("m_sem.init(%x) failed\n",SEMKEYP_); return -1;}
     //将共享内存连接到当前进程的地址空间
     struct st_pinfo * m_shm;
     m_shm = (struct st_pinfo *) shmat(m_shmid,0,0);
@@ -46,7 +48,7 @@ int main(int argc, char *argv[]){
     for(int ii = 0; ii < SHMKEYP ; ii++){
         if(m_shm[ii].pid == stpinfo.pid) { m_pos = ii; break;}
     }
-
+    m_sem.P(); //加锁
     // 在共享内存中查找一个空位置，把当前进程的心跳信息存入共享内存中。
     if(m_pos == -1){
         for(int ii = 0; ii < SHMKEYP; ii++){
@@ -59,10 +61,12 @@ int main(int argc, char *argv[]){
     }
     
     if(m_pos == -1){
+        m_sem.V(); //没有空间了，要退出，也要解锁。
         printf("共享内存空间已用完。\n"); return -1;
     }
     //把当前进程的心跳信息存入共享内存的进程组中。
     memcpy(m_shm+m_pos,&stpinfo,sizeof(struct st_pinfo));
+    m_sem.V(); //解锁
     while(true){
         //更新共享内存中本进程的心跳时间
         m_shm[m_pos].atime = time(0);
