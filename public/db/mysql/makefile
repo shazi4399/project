@@ -17,7 +17,7 @@ createtable:createtable.cpp _mysql.h _mysql.cpp
 	g++ $(CFLAGS) -o createtable createtable.cpp _mysql.cpp $(MYSQLINCL) $(MYSQLLIB) $(MYSQLLIBS) -lm -lc
 
 inserttable:inserttable.cpp _mysql.h _mysql.cpp
-	g++ $(CFLAGS) -o inserttable inserttable.cpp $(MYSQLINCL) $(MYSQLLIB) $(MYSQLLIBS) _mysql.cpp -lm -lc
+	g++ $(CFLAGS) -o inserttable inserttable.cpp _mysql.cpp $(MYSQLINCL) $(MYSQLLIB) $(MYSQLLIBS) -lm -lc
 
 updatetable:updatetable.cpp _mysql.h _mysql.cpp
 	g++ $(CFLAGS) -o updatetable updatetable.cpp $(MYSQLINCL) $(MYSQLLIB) $(MYSQLLIBS) _mysql.cpp -lm -lc
