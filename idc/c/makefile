@@ -5,10 +5,10 @@ PUBINCL = -I/project/public
 PUBCPP = /project/public/_public.cpp
 
 # mysql头文件存放路径
-MYSQLINCL = -I/usr/local/mysql/include  -I/project/public/db/mysql
+MYSQLINCL = -I/usr/include/mysql  -I/project/public/db/mysql
 
 # mysql库文件保存路径
-MYSQLLIB = -L/usr/local/mysql/lib
+MYSQLLIB = -L/usr/lib/x86_64-linux-gnu
 
 # mysql链接库
 MYSQLLIBS = -lmysqlclient
@@ -47,11 +47,11 @@ crtsurfdata:crtsurfdata.cpp
 	cp crtsurfdata ../bin/.
 
 obtcodetodb:obtcodetodb.cpp
-	g++ $(CFLAGS) -o obtcodetodb obtcodetodb.cpp $(PUBINCL) $(PUBCPP) $(MYSQLINCL) $(MYSQLLIB) $(MYSQLLIBS) $(MYSQLCPP) -lm -lc
+	g++ $(CFLAGS) -o obtcodetodb $(MYSQLCPP) obtcodetodb.cpp $(PUBINCL) $(PUBCPP) $(MYSQLINCL) $(MYSQLLIB) $(MYSQLLIBS) -lm -lc
 	cp obtcodetodb ../bin/.
 
 obtmindtodb:obtmindtodb.cpp idcapp.h idcapp.cpp
-	g++ $(CFLAGS) -o obtmindtodb obtmindtodb.cpp $(PUBINCL) $(PUBCPP) $(MYSQLINCL) $(MYSQLLIB) $(MYSQLLIBS) $(MYSQLCPP) idcapp.cpp -lm -lc
+	g++ $(CFLAGS) -o obtmindtodb $(MYSQLCPP) obtmindtodb.cpp $(PUBINCL) $(PUBCPP) $(MYSQLINCL) $(MYSQLLIB) $(MYSQLLIBS) idcapp.cpp -lm -lc
 	cp obtmindtodb ../bin/.
 
 clean:
