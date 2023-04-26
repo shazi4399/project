@@ -57,7 +57,7 @@ int main(int argc,char *argv[])
 {
   if ( (argc!=5) && (argc!=6) )
   {
-    // 如果参数非法，给出帮助文档。
+    // 如果参数非法，给出帮助文档。zhanghao
     printf("Using:./crtsurfdata inifile outpath logfile datafmt [datetime]\n");
     printf("Example:/project/idc1/bin/crtsurfdata /project/idc1/ini/stcode.ini /tmp/idc/surfdata /log/idc/crtsurfdata.log xml,json,csv\n");
     printf("        /project/idc1/bin/crtsurfdata /project/idc1/ini/stcode.ini /tmp/idc/surfdata /log/idc/crtsurfdata.log xml,json,csv 20210710123000\n");

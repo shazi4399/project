@@ -1,15 +1,10 @@
 /*
- * 程序名：crtsurfdata3.cpp 本程序用于生成全国气象站点观测的分钟数据。
- * 作者：zhanghao
- * 3)遍历站点参数容器，生成每个站点的观测数据，存放在站点观测数据容器中（这里的容器是vector，
- *      意思就是说，没有实际写到文件中，临时数据还在内存中）
- *  对应教学视频：2-4 生成测试数据——模拟观测数据
- */
+ *  程序名：crtsurfdata3.cpp  本程序用于生成全国气象站点观测的分钟数据。
+ *  作者：吴从周。
+*/
 
 #include "_public.h"
-/**
- * 这里相当于 从参数传感器提取到的最原始数据，即全国气象站点参数。
- */
+
 // 全国气象站点参数结构体。
 struct st_stcode
 {
@@ -20,15 +15,13 @@ struct st_stcode
   double lon;        // 经度
   double height;     // 海拔高度
 };
+
 // 存放全国气象站点参数的容器。
 vector<struct st_stcode> vstcode;
 
 // 把站点参数文件中加载到vstcode容器中。
 bool LoadSTCode(const char *inifile);
 
-/**
- * 这里是用站点数据模拟生成的数据。
- */
 // 全国气象站点分钟观测数据结构
 struct st_surfdata
 {
@@ -42,10 +35,11 @@ struct st_surfdata
   int  r;              // 降雨量：0.1mm。
   int  vis;            // 能见度：0.1米。
 };
+
 vector<struct st_surfdata> vsurfdata;  // 存放全国气象站点分钟观测数据的容器
+
 // 模拟生成全国气象站点分钟观测数据，存放在vsurfdata容器中。
 void CrtSurfData();
-
 
 CLogFile logfile;    // 日志类。
 
@@ -55,7 +49,7 @@ int main(int argc,char *argv[])
   {
     // 如果参数非法，给出帮助文档。
     printf("Using:./crtsurfdata3 inifile outpath logfile\n");
-    printf("Example:~/Downloads/weather/idc1/bin/crtsurfdata3 ~/Downloads/weather/idc1/ini/stcode.ini  /tmp/surfdata /log/idc/crtsurfdata3.log \n\n");
+    printf("Example:/project/idc1/bin/crtsurfdata3 /project/idc1/ini/stcode.ini /tmp/surfdata /log/idc/crtsurfdata3.log\n\n");
 
     printf("inifile 全国气象站点参数文件名。\n");
     printf("outpath 全国气象站点数据文件存放的目录。\n");
@@ -166,4 +160,3 @@ void CrtSurfData()
     vsurfdata.push_back(stsurfdata);
   }
 }
-
